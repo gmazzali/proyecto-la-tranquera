@@ -5,6 +5,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un pedido de una mesa dentro del restaurante.
  * 
@@ -12,6 +30,9 @@ import java.util.List;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "PEDIDOS")
+@Entity(name = "Pedido")
 public class Pedido extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -34,13 +55,15 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 
 	private Mozo mozo;
 
-	private BigDecimal descuento;
+	private BigDecimal descuento = BigDecimal.ZERO;
 
-	private BigDecimal cubiertos;
+	private BigDecimal cubiertos = BigDecimal.ZERO;
 
-	private Transaccion transaccion;
+	private BigDecimal importe = BigDecimal.ZERO;
 
 	private List<ItemPedido> itemPedidos = new ArrayList<ItemPedido>();
+
+	private Transaccion transaccion;
 
 	@Override
 	public String toString() {
@@ -51,10 +74,15 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_PEDIDO")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@Column(name = "FECHA", columnDefinition = "timestamp", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getFecha() {
 		return fecha;
 	}
@@ -63,6 +91,8 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.fecha = fecha;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_MESA", referencedColumnName = "ID_MESA", insertable = true, updatable = true, nullable = false)
 	public Mesa getMesa() {
 		return mesa;
 	}
@@ -71,6 +101,8 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.mesa = mesa;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_MOZO", referencedColumnName = "ID_MOZO", insertable = true, updatable = true, nullable = false)
 	public Mozo getMozo() {
 		return mozo;
 	}
@@ -79,6 +111,7 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.mozo = mozo;
 	}
 
+	@Column(name = "DESCUENTO", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getDescuento() {
 		return descuento;
 	}
@@ -87,6 +120,7 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.descuento = descuento;
 	}
 
+	@Column(name = "CUBIERTOS", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getCubiertos() {
 		return cubiertos;
 	}
@@ -95,14 +129,16 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.cubiertos = cubiertos;
 	}
 
-	public Transaccion getTransaccion() {
-		return transaccion;
+	@Column(name = "IMPORTE", columnDefinition = "decimal(12,4)", nullable = false)
+	public BigDecimal getImporte() {
+		return importe;
 	}
 
-	public void setTransaccion(Transaccion transaccion) {
-		this.transaccion = transaccion;
+	public void setImporte(BigDecimal importe) {
+		this.importe = importe;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = ItemPedido.Attributes.PEDIDO, orphanRemoval = true)
 	public List<ItemPedido> getItemPedidos() {
 		return itemPedidos;
 	}
@@ -121,5 +157,25 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		if (itemPedido != null) {
 			this.itemPedidos.remove(itemPedido);
 		}
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_TRANSACCION", referencedColumnName = "ID_TRANSACCION", insertable = true, updatable = true, nullable = false)
+	public Transaccion getTransaccion() {
+		return transaccion;
+	}
+
+	public void setTransaccion(Transaccion transaccion) {
+		this.transaccion = transaccion;
+	}
+
+	@Transient
+	public BigDecimal recalcularImporte(Date fecha) {
+		BigDecimal total = BigDecimal.ZERO;
+		for (ItemPedido itemPedido : this.itemPedidos) {
+			total = total.add(itemPedido.getMenu().getPrecio(fecha));
+		}
+		total = total.add(this.cubiertos).subtract(this.descuento);
+		return total;
 	}
 }

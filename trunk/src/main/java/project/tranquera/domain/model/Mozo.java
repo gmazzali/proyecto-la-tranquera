@@ -1,12 +1,24 @@
 package project.tranquera.domain.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase destinada a representar a un mozo del restaurante con sus datos.
- *
+ * 
  * @since 11/11/2014
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "MOZOS")
+@Entity(name = "Mozo")
 public class Mozo extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -29,10 +41,14 @@ public class Mozo extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_MOZO")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@Column(name = "NOMBRE", columnDefinition = "varchar(50)", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -41,6 +57,7 @@ public class Mozo extends TranqueraActiveEntity<Long> {
 		this.nombre = nombre;
 	}
 
+	@Column(name = "APELLIDO", columnDefinition = "varchar(50)", nullable = false)
 	public String getApellido() {
 		return apellido;
 	}

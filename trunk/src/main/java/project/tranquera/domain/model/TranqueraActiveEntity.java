@@ -2,13 +2,17 @@ package project.tranquera.domain.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+
 import com.common.util.domain.model.entity.ActiveEntity;
 
 /**
  * Clase base para las entidades activables.
  * 
- * @author Guillermo
- *
+ * @since 14/11/2014
+ * @author Guillermo Mazzali
+ * @version 1.0
+ * 
  * @param <PK>
  *            La clase de las claves primarias.
  */
@@ -21,6 +25,7 @@ public abstract class TranqueraActiveEntity<PK extends Serializable> extends Act
 	public interface Attributes extends ActiveEntity.Attributes {
 	}
 
+	@Column(name = "ACTIVO", columnDefinition = "bool", nullable = false)
 	public Boolean getActive() {
 		return active;
 	}

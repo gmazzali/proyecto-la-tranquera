@@ -5,8 +5,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import com.common.util.business.tool.date.DateUtil;
 import com.common.util.business.util.DatePrecisionEnum;
+import com.common.util.domain.annotation.Model;
 
 /**
  * Clase utilizada para representar un objeto del tipo de menu.
@@ -15,6 +29,9 @@ import com.common.util.business.util.DatePrecisionEnum;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "MENUS")
+@Entity(name = "Menu")
 public class Menu extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -43,10 +60,14 @@ public class Menu extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_MENU")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@Column(name = "NOMBRE", columnDefinition = "varchar(100)", nullable = false)
 	public String getNombre() {
 		return nombre;
 	}
@@ -55,6 +76,8 @@ public class Menu extends TranqueraActiveEntity<Long> {
 		this.nombre = descripcion;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_CATEGORIA", referencedColumnName = "ID_CATEGORIA", insertable = true, updatable = true, nullable = false)
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -63,6 +86,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 		this.categoria = categoria;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Precio.Attributes.MENU, orphanRemoval = true)
 	public List<Precio> getPrecios() {
 		return precios;
 	}
@@ -83,6 +107,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 		}
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = MovimientoStock.Attributes.MENU, orphanRemoval = true)
 	public List<MovimientoStock> getMovimientoStocks() {
 		return movimientoStocks;
 	}
@@ -103,6 +128,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 		}
 	}
 
+	@Transient
 	public BigDecimal getPrecio(Date fecha) {
 		Precio precio = null;
 		for (Precio p : precios) {
