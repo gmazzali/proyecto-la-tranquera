@@ -21,6 +21,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Where;
+
 import com.common.util.domain.annotation.Model;
 
 /**
@@ -139,6 +141,7 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = ItemPedido.Attributes.PEDIDO, orphanRemoval = true)
+	@Where(clause = ItemPedido.Attributes.ACTIVE + " = 1")
 	public List<ItemPedido> getItemPedidos() {
 		return itemPedidos;
 	}
