@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
+
 import com.common.util.domain.annotation.Model;
 
 /**
@@ -64,6 +66,7 @@ public class Categoria extends TranqueraActiveEntity<Long> {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Menu.Attributes.CATEGORIA, orphanRemoval = true)
+	@Where(clause = Menu.Attributes.ACTIVE + " = 1")
 	public List<Menu> getMenues() {
 		return this.menues;
 	}

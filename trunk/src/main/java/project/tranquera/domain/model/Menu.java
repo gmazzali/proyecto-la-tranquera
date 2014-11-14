@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Where;
+
 import com.common.util.business.tool.date.DateUtil;
 import com.common.util.business.util.DatePrecisionEnum;
 import com.common.util.domain.annotation.Model;
@@ -108,6 +110,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = MovimientoStock.Attributes.MENU, orphanRemoval = true)
+	@Where(clause = MovimientoStock.Attributes.ACTIVE + " = 1")
 	public List<MovimientoStock> getMovimientoStocks() {
 		return movimientoStocks;
 	}

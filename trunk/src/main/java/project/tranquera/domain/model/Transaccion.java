@@ -3,7 +3,6 @@ package project.tranquera.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import project.tranquera.domain.TipoDeTransaccion;
 import project.tranquera.domain.dto.TipoCaja;
 
 /**
@@ -20,7 +19,7 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 	 * La interfaz que contiene el nombre de los atributos de esta entidad.
 	 */
 	public interface Attributes extends TranqueraActiveEntity.Attributes {
-		public static final String TIPO_TRANSACCION = "tipoDeTransaccion";
+		public static final String TIPO_TRANSACCION = "tipoTransaccion";
 		public static final String CAJA = "caja";
 		public static final String TIPO_CAJA = "tipoCaja";
 		public static final String FECHA = "fecha";
@@ -28,11 +27,11 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		public static final String OBSERVACION = "observacion";
 	}
 
-	private TipoDeTransaccion tipoDeTransaccion;
-
 	private Caja caja;
 
 	private TipoCaja tipoCaja;
+
+	private TipoTransaccion tipoTransaccion;
 
 	private Date fecha;
 
@@ -43,7 +42,7 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 	@Override
 	public String toString() {
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(super.toString()).append(" TIPO TRANSACCION: ").append(this.tipoDeTransaccion).append(" CAJA: ").append(this.caja)
+		stringBuffer.append(super.toString()).append(" TIPO TRANSACCION: ").append(this.tipoTransaccion).append(" CAJA: ").append(this.caja)
 				.append(" TIPO CAJA: ").append(this.tipoCaja).append(" FECHA: ").append(this.fecha).append(" IMPORTE: ").append(this.importe)
 				.append(" OBSERVACION: ").append(this.observacion);
 		return stringBuffer.toString();
@@ -51,14 +50,6 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 
 	public Long getId() {
 		return id;
-	}
-
-	public TipoDeTransaccion getTipoDeTransaccion() {
-		return tipoDeTransaccion;
-	}
-
-	public void setTipoDeTransaccion(TipoDeTransaccion tipoDeTransaccion) {
-		this.tipoDeTransaccion = tipoDeTransaccion;
 	}
 
 	public Caja getCaja() {
@@ -75,6 +66,14 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 
 	public void setTipoCaja(TipoCaja tipoCaja) {
 		this.tipoCaja = tipoCaja;
+	}
+
+	public TipoTransaccion getTipoTransaccion() {
+		return tipoTransaccion;
+	}
+
+	public void setTipoTransaccion(TipoTransaccion tipoTransaccion) {
+		this.tipoTransaccion = tipoTransaccion;
 	}
 
 	public Date getFecha() {
