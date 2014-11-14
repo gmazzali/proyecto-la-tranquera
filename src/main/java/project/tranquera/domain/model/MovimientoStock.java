@@ -3,6 +3,20 @@ package project.tranquera.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un movimiento de stock de un menu dentro del sistema.
  * 
@@ -10,6 +24,9 @@ import java.util.Date;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "MOVIMIENTOS_STOCKS")
+@Entity(name = "MovimientoStock")
 public class MovimientoStock extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -27,9 +44,11 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 
 	private Date fecha;
 
-	private BigDecimal movimiento;
+	private String descripcion;
 
-	private BigDecimal disponible;
+	private BigDecimal movimiento = BigDecimal.ZERO;;
+
+	private BigDecimal disponible = BigDecimal.ZERO;;
 
 	@Override
 	public String toString() {
@@ -39,10 +58,15 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_MOVIMIENTO_STOCK")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_MENU", referencedColumnName = "ID_MENU", insertable = true, updatable = true, nullable = false)
 	public Menu getMenu() {
 		return menu;
 	}
@@ -51,6 +75,8 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 		this.menu = menu;
 	}
 
+	@Column(name = "FECHA", columnDefinition = "timestamp", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getFecha() {
 		return fecha;
 	}
@@ -59,6 +85,16 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 		this.fecha = fecha;
 	}
 
+	@Column(name = "DESCRIPCION", columnDefinition = "varchar(150)", nullable = false)
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	@Column(name = "MOVIMIENTO", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getMovimiento() {
 		return movimiento;
 	}
@@ -67,6 +103,7 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 		this.movimiento = movimiento;
 	}
 
+	@Column(name = "DISPONIBLE", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getDisponible() {
 		return disponible;
 	}

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import project.tranquera.domain.TipoDeTransaccion;
+import project.tranquera.domain.dto.TipoCaja;
 
 /**
  * Clase que representa una transacción de caja.

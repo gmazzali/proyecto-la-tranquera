@@ -1,9 +1,9 @@
 package project.tranquera.persistence.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import project.tranquera.domain.model.MovimientoStock;
 import project.tranquera.persistence.dao.MovimientoStockDao;
-
-import com.common.util.domain.annotation.Dao;
 
 /**
  * La clase que implementa la interfaz base para los DAOs de los movimientos de stock.
@@ -12,7 +12,7 @@ import com.common.util.domain.annotation.Dao;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-@Dao
+@Repository
 public class MovimientoStockDaoImpl extends TranqueraActiveBaseDaoImpl<MovimientoStock, Long> implements MovimientoStockDao {
 	private static final long serialVersionUID = 1L;
 }

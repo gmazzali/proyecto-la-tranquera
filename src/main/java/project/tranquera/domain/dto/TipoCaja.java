@@ -1,4 +1,4 @@
-package project.tranquera.domain.model;
+package project.tranquera.domain.dto;
 
 /**
  * Los tipos de cajas que vamos a tener dentro del sistema.

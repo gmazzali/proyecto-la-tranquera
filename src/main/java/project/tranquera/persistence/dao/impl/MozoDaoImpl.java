@@ -1,9 +1,9 @@
 package project.tranquera.persistence.dao.impl;
 
+import org.springframework.stereotype.Repository;
+
 import project.tranquera.domain.model.Mozo;
 import project.tranquera.persistence.dao.MozoDao;
-
-import com.common.util.domain.annotation.Dao;
 
 /**
  * La clase que implementa la interfaz base para los DAOs de los mozos.
@@ -12,7 +12,7 @@ import com.common.util.domain.annotation.Dao;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-@Dao
+@Repository
 public class MozoDaoImpl extends TranqueraActiveBaseDaoImpl<Mozo, Long> implements MozoDao {
 	private static final long serialVersionUID = 1L;
 }

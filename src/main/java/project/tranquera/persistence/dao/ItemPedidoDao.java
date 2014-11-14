@@ -9,5 +9,5 @@ import project.tranquera.domain.model.ItemPedido;
  * @author Guillermo Mazzali
  * @version 1.0
  */
-public interface ItemDePedidoDao extends TranqueraBaseDao<ItemPedido, Long> {
+public interface ItemPedidoDao extends TranqueraBaseDao<ItemPedido, Long> {
 }

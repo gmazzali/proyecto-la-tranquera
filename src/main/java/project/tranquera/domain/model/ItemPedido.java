@@ -1,5 +1,17 @@
 package project.tranquera.domain.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un item de un pedido en particular.
  * 
@@ -7,6 +19,9 @@ package project.tranquera.domain.model;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "ITEMS_PEDIDOS")
+@Entity(name = "ItemPedido")
 public class ItemPedido extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +38,7 @@ public class ItemPedido extends TranqueraActiveEntity<Long> {
 
 	private Menu menu;
 
-	private Integer cantidad;
+	private Integer cantidad = 0;
 
 	@Override
 	public String toString() {
@@ -33,10 +48,15 @@ public class ItemPedido extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_ITEM_PEDIDO")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_PEDIDO", referencedColumnName = "ID_PEDIDO", insertable = true, updatable = true, nullable = false)
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -45,6 +65,8 @@ public class ItemPedido extends TranqueraActiveEntity<Long> {
 		this.pedido = pedido;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_MENU", referencedColumnName = "ID_MENU", insertable = true, updatable = true, nullable = false)
 	public Menu getMenu() {
 		return menu;
 	}
@@ -53,6 +75,7 @@ public class ItemPedido extends TranqueraActiveEntity<Long> {
 		this.menu = menu;
 	}
 
+	@Column(name = "CANTIDAD", columnDefinition = "decimal(12,4)", nullable = false)
 	public Integer getCantidad() {
 		return cantidad;
 	}

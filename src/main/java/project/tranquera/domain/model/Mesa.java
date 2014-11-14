@@ -1,5 +1,18 @@
 package project.tranquera.domain.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que crea objetos que representan una mesa del local.
  * 
@@ -7,6 +20,9 @@ package project.tranquera.domain.model;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "MESAS")
+@Entity(name = "Mesa")
 public class Mesa extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -20,19 +36,24 @@ public class Mesa extends TranqueraActiveEntity<Long> {
 
 	private Pedido pedido;
 
-	private Boolean disponibilidad = Boolean.TRUE;
+	private Boolean disponible = Boolean.TRUE;
 
 	@Override
 	public String toString() {
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(super.toString()).append(" DISPONIBILIDAD: ").append(this.disponibilidad).append(" PEDIDO: ").append(this.pedido);
+		stringBuffer.append(super.toString()).append(" DISPONIBILIDAD: ").append(this.disponible).append(" PEDIDO: ").append(this.pedido);
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Column(name = "ID_MESA")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_PEDIDO", referencedColumnName = "ID_PEDIDO", insertable = true, updatable = true, nullable = false)
 	public Pedido getPedido() {
 		return pedido;
 	}
@@ -41,11 +62,12 @@ public class Mesa extends TranqueraActiveEntity<Long> {
 		this.pedido = pedido;
 	}
 
-	public Boolean getDisponibilidad() {
-		return disponibilidad;
+	@Column(name = "DISPONIBLE", columnDefinition = "bool", nullable = false)
+	public Boolean getDisponible() {
+		return disponible;
 	}
 
-	public void setDisponibilidad(Boolean disponibilidad) {
-		this.disponibilidad = disponibilidad;
+	public void setDisponible(Boolean disponible) {
+		this.disponible = disponible;
 	}
 }
