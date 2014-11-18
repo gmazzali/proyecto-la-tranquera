@@ -7,8 +7,7 @@ import org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel;
 import com.common.util.business.holder.HolderApplicationContext;
 import com.common.util.business.holder.LoaderApplicationContext;
 import com.common.util.business.holder.MonitorApplicationContext;
-import com.project.tranquera.business.service.MozoService;
-import com.project.tranquera.domain.model.Mozo;
+import com.project.tranquera.view.mozo.MozoListForm;
 
 /**
  * La clase que nos permite arrancar el aplicativo.
@@ -26,27 +25,29 @@ public class Start {
 
 			String[] files = { "/com/project/tranquera/spring/general-application-context.xml" };
 			final MonitorApplicationContext monitorApplicationContext = new MonitorApplicationContext();
-			new Thread() {
-				@Override
-				public void run() {
-					while (!monitorApplicationContext.isContextComplete()) {
-						System.out.println("MONITOR BEAN COUNT: " + monitorApplicationContext.getBeanCount());
-						System.out.println("MONITOR CURRENT BEAN COUNT: " + monitorApplicationContext.getCurrentBeanCount());
-						System.out.println("MONITOR CURRENT BEAN NAME: " + monitorApplicationContext.getCurrentBeanName());
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-				};
-			}.start();
+			// new Thread() {
+			// @Override
+			// public void run() {
+			// while (!monitorApplicationContext.isContextComplete()) {
+			// System.out.println("MONITOR BEAN COUNT: " + monitorApplicationContext.getBeanCount());
+			// System.out.println("MONITOR CURRENT BEAN COUNT: " + monitorApplicationContext.getCurrentBeanCount());
+			// System.out.println("MONITOR CURRENT BEAN NAME: " + monitorApplicationContext.getCurrentBeanName());
+			// try {
+			// Thread.sleep(1000);
+			// } catch (InterruptedException e) {
+			// e.printStackTrace();
+			// }
+			// }
+			// };
+			// }.start();
 			LoaderApplicationContext.initApplicationContext(monitorApplicationContext, files);
 
-			Mozo mozo = new Mozo();
-			mozo.setNombre("nombre mozo");
-			mozo.setApellido("Apellido mozo");
-			HolderApplicationContext.getBean(MozoService.class).save(mozo);
+			// Mozo mozo = new Mozo();
+			// mozo.setNombre("nombre mozo");
+			// mozo.setApellido("Apellido mozo");
+			// HolderApplicationContext.getBean(MozoService.class).save(mozo);
+
+			HolderApplicationContext.getBean(MozoListForm.class).setVisible(true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
