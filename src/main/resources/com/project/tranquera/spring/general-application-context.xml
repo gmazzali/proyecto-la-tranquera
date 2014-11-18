@@ -13,7 +13,6 @@
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<!-- Cargamos las propiedades de los parámetros para el sistema -->
-	
 	<bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -25,7 +24,6 @@
 	</bean>
 
 	<!-- Cargamos las propiedades que tienen los mensaje del sistema -->
-
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="cacheSeconds" value="600" />
 		<property name="basenames">
@@ -46,9 +44,7 @@
 	</bean>
 
 	<!-- Cargamos la configuración del LOG4J -->
-
-	<bean
-		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
 		<property name="targetMethod" value="initLogging" />
 		<property name="arguments">
@@ -60,13 +56,10 @@
 	</bean>
 
 	<!-- La lectura de las clases de los DAOs, los servicios y las vistas -->
-
 	<context:annotation-config />
 	<context:component-scan base-package="project.tranquera.*" />
 
-	<!-- Creamos la conexión, la sessionFactory y el controlador de transacciones 
-		a la base de datos -->
-
+	<!-- Creamos la conexión, la sessionFactory y el controlador de transacciones a la base de datos -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="properties">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
@@ -112,4 +105,6 @@
 		<aop:pointcut id="baseService" expression="execution(* project.tranquera.business.service..*Service (..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseService" />
 	</aop:config>
+
+	<bean id="loadListenerContext" class="com.common.util.business.holder.LoaderApplicationContext"/>
 </beans>
