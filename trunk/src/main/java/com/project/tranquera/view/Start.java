@@ -5,6 +5,8 @@ import javax.swing.UIManager;
 import org.jdesktop.swingx.plaf.nimbus.NimbusLookAndFeel;
 
 import com.common.util.business.holder.HolderApplicationContext;
+import com.common.util.business.holder.LoaderApplicationContext;
+import com.common.util.business.holder.MonitorApplicationContext;
 import com.project.tranquera.business.service.MozoService;
 import com.project.tranquera.domain.model.Mozo;
 
@@ -21,8 +23,25 @@ public class Start {
 			// System.setProperty("tranquera.configuration.dir", "D:/DEV/SVN/proyecto-la-tranquera/trunk/src/main/config");
 			System.setProperty("tranquera.configuration.dir", "C:/dev/svn/mios/Tranquera/trunk/src/main/config");
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
+
 			String[] files = { "/com/project/tranquera/spring/general-application-context.xml" };
-			HolderApplicationContext.initApplicationContext(files);
+			final MonitorApplicationContext monitorApplicationContext = new MonitorApplicationContext();
+			new Thread() {
+				@Override
+				public void run() {
+					while (!monitorApplicationContext.isContextComplete()) {
+						System.out.println("MONITOR BEAN COUNT: " + monitorApplicationContext.getBeanCount());
+						System.out.println("MONITOR CURRENT BEAN COUNT: " + monitorApplicationContext.getCurrentBeanCount());
+						System.out.println("MONITOR CURRENT BEAN NAME: " + monitorApplicationContext.getCurrentBeanName());
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				};
+			}.start();
+			LoaderApplicationContext.initApplicationContext(monitorApplicationContext, files);
 
 			Mozo mozo = new Mozo();
 			mozo.setNombre("nombre mozo");
