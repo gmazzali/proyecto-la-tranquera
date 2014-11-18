@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Where;
 
 import com.common.util.business.tool.date.DateUtil;
-import com.common.util.business.util.DatePrecisionEnum;
+import com.common.util.business.util.DatePrecision;
 import com.common.util.domain.annotation.Model;
 
 /**
@@ -135,7 +135,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 	public BigDecimal getPrecio(Date fecha) {
 		Precio precio = null;
 		for (Precio p : precios) {
-			if (DateUtil.between(fecha, p.getFechaDesde(), p.getFechaHasta(), DatePrecisionEnum.MILLISECOND)) {
+			if (DateUtil.between(fecha, p.getFechaDesde(), p.getFechaHasta(), DatePrecision.MILLISECOND)) {
 				precio = p;
 				break;
 			}
