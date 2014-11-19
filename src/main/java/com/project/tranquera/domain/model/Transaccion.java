@@ -3,8 +3,15 @@ package com.project.tranquera.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.project.tranquera.domain.dto.TipoCaja;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import com.common.util.domain.annotation.Model;
+import com.project.tranquera.domain.dto.TipoCaja;
 
 /**
  * Clase que representa una transacción de caja.
@@ -13,6 +20,9 @@ import com.project.tranquera.domain.dto.TipoCaja;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "TRANSACCIONES")
+@Entity(name = "Transaccion")
 public class Transaccion extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +59,10 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Override
+	@Column(name = "ID_TRANSACCION")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

@@ -1,5 +1,14 @@
 package com.project.tranquera.domain.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un acreedor.
  * 
@@ -7,6 +16,9 @@ package com.project.tranquera.domain.model;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "ACREEDORES")
+@Entity(name = "Acreedor")
 public class Acreedor extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -36,6 +48,10 @@ public class Acreedor extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Override
+	@Column(name = "ID_ACREEDOR")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

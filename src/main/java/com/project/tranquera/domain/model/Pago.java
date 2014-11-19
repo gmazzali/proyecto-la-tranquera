@@ -3,6 +3,15 @@ package com.project.tranquera.domain.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un pago a un acreedor.
  * 
@@ -10,6 +19,9 @@ import java.util.Date;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "PAGOS")
+@Entity(name = "Pago")
 public class Pago extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +51,10 @@ public class Pago extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Override
+	@Column(name = "ID_PAGO")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

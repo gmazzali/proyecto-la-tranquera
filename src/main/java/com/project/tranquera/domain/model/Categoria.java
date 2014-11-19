@@ -50,6 +50,7 @@ public class Categoria extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_CATEGORIA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

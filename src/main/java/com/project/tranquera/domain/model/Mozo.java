@@ -42,6 +42,7 @@ public class Mozo extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_MOZO")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

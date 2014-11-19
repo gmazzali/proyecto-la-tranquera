@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 import com.common.util.domain.annotation.Model;
 import com.project.tranquera.domain.dto.TipoCaja;
 
@@ -55,6 +54,7 @@ public class MontoInicio extends TranqueraEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_MONTO_INICIO")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
