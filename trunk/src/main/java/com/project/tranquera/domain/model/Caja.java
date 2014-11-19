@@ -55,6 +55,7 @@ public class Caja extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_CAJA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

@@ -59,6 +59,7 @@ public class MovimientoStock extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_MOVIMIENTO_STOCK")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

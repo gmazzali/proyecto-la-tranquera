@@ -77,6 +77,7 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_PEDIDO")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

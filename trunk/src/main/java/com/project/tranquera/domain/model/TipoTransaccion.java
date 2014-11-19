@@ -1,5 +1,14 @@
 package com.project.tranquera.domain.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.common.util.domain.annotation.Model;
+
 /**
  * Clase que representa un tipo de transacción de caja.
  * 
@@ -7,6 +16,9 @@ package com.project.tranquera.domain.model;
  * @author Guillermo Mazzali
  * @version 1.0
  */
+@Model
+@Table(name = "TIPOS_TRANSACCIONES")
+@Entity(name = "TipoTransaccion")
 public class TipoTransaccion extends TranqueraActiveEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
@@ -29,6 +41,10 @@ public class TipoTransaccion extends TranqueraActiveEntity<Long> {
 		return stringBuffer.toString();
 	}
 
+	@Id
+	@Override
+	@Column(name = "ID_TIPO_TRANSACCION")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

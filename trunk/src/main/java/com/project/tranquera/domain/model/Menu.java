@@ -63,6 +63,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_MENU")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {

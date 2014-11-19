@@ -46,6 +46,7 @@ public class Mesa extends TranqueraActiveEntity<Long> {
 	}
 
 	@Id
+	@Override
 	@Column(name = "ID_MESA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
