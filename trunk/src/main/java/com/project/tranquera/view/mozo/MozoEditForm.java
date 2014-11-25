@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.common.swing.view.action.EditAction;
 import com.common.swing.view.component.panel.BaseEditPanel;
 import com.common.swing.view.decorator.ButtonDecorator;
-import com.common.util.business.holder.HolderMessage;
+import com.common.util.business.service.MessageService;
 import com.crud.swing.view.form.edit.BaseEditForm;
 import com.project.tranquera.view.mozo.bean.MozoBean;
 import com.project.tranquera.view.mozo.component.MozoEditPanel;
@@ -29,19 +29,22 @@ public class MozoEditForm extends BaseEditForm<MozoBean> {
 	@Autowired
 	private MozoEditPanel mozoEditPanel;
 
+	@Autowired
+	private MessageService messageService;
+
 	@Override
 	protected String getNewTitle() {
-		return HolderMessage.getMessage("");
+		return this.messageService.getMessage("");
 	}
 
 	@Override
 	protected String getEditTitle() {
-		return HolderMessage.getMessage("");
+		return this.messageService.getMessage("");
 	}
 
 	@Override
 	protected String getViewTitle() {
-		return HolderMessage.getMessage("");
+		return this.messageService.getMessage("");
 	}
 
 	@Override
