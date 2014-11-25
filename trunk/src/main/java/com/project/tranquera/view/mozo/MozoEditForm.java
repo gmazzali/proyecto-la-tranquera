@@ -12,6 +12,7 @@ import com.common.swing.view.component.panel.BaseEditPanel;
 import com.common.swing.view.decorator.ButtonDecorator;
 import com.common.util.business.service.MessageService;
 import com.crud.swing.view.form.edit.BaseEditForm;
+import com.project.tranquera.view.base.TranqueraButtonDecorator;
 import com.project.tranquera.view.mozo.bean.MozoBean;
 import com.project.tranquera.view.mozo.component.MozoEditPanel;
 
@@ -58,11 +59,12 @@ public class MozoEditForm extends BaseEditForm<MozoBean> {
 
 	@Override
 	protected ButtonDecorator getConfirmButtonDecorator() {
-		return new ButtonDecorator() {
+		return new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("Aceptar");
 			}
 		};
@@ -70,11 +72,12 @@ public class MozoEditForm extends BaseEditForm<MozoBean> {
 
 	@Override
 	protected ButtonDecorator getCancelButtonDecorator() {
-		return new ButtonDecorator() {
+		return new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("Cancelar");
 			}
 		};
