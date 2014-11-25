@@ -38,9 +38,13 @@
 		<constructor-arg index="1" value="${locale.country}" />
 	</bean>
 	
-	<bean id="holderMessage" class="com.common.util.business.holder.HolderMessage" lazy-init="false" depends-on="messageSource, messageLocale">
+	<bean id="messageService" class="com.common.util.business.service.impl.MessageServiceImpl" lazy-init="false" depends-on="messageSource, messageLocale">
 		<property name="resources" ref="messageSource" />
 		<property name="locale" ref="messageLocale" />
+	</bean>
+	
+	<bean id="notificacions" class="com.common.swing.view.notification.Notificaction" lazy-init="false" depends-on="messageService">
+		<property name="messageService" ref="messageService" />
 	</bean>
 
 	<!-- Cargamos la configuración del LOG4J -->
