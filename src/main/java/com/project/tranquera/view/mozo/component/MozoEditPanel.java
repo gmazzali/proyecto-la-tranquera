@@ -1,11 +1,15 @@
 package com.project.tranquera.view.mozo.component;
 
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.common.swing.domain.exception.SwingException;
 import com.common.swing.view.component.panel.BaseEditPanel;
+import com.common.util.business.service.MessageService;
 import com.project.tranquera.view.mozo.bean.MozoBean;
 
 /**
@@ -19,9 +23,9 @@ import com.project.tranquera.view.mozo.bean.MozoBean;
 public class MozoEditPanel extends BaseEditPanel<MozoBean> {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Los campos de nombre y apellido del mozo.
-	 */
+	@Autowired
+	private MessageService messageService;
+
 	private JTextField nombreField;
 	private JTextField apellidoField;
 
@@ -37,6 +41,26 @@ public class MozoEditPanel extends BaseEditPanel<MozoBean> {
 
 	@Override
 	protected void afterInit() {
+		JLabel nombreLabel = new JLabel();
+		nombreLabel.setText(this.messageService.getMessage(""));
+		nombreLabel.setBounds(5, 5, 100, 10);
+		nombreLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		this.nombreField = new JTextField();
+		nombreLabel.setBounds(5, 20, 100, 10);
+
+		JLabel apellidoLabel = new JLabel();
+		apellidoLabel.setText(this.messageService.getMessage(""));
+		nombreLabel.setBounds(5, 20, 100, 10);
+		apellidoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		this.apellidoField = new JTextField();
+		nombreLabel.setBounds(5, 20, 100, 10);
+
+		this.add(nombreLabel);
+		this.add(this.nombreField);
+		this.add(apellidoLabel);
+		this.add(this.apellidoField);
 	}
 
 	@Override

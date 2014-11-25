@@ -23,6 +23,7 @@ import com.crud.swing.view.form.list.BaseListForm;
 import com.project.tranquera.business.service.MozoService;
 import com.project.tranquera.business.service.TranqueraConverterService;
 import com.project.tranquera.domain.model.Mozo;
+import com.project.tranquera.view.base.TranqueraButtonDecorator;
 import com.project.tranquera.view.mozo.bean.MozoBean;
 import com.project.tranquera.view.mozo.component.MozoListPanel;
 
@@ -108,11 +109,12 @@ public class MozoListForm extends BaseListForm<MozoBean> {
 			};
 		};
 
-		ButtonDecorator buttonDecorator = new ButtonDecorator() {
+		ButtonDecorator buttonDecorator = new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("Nuevo");
 			}
 		};
@@ -156,11 +158,12 @@ public class MozoListForm extends BaseListForm<MozoBean> {
 			};
 		};
 
-		ButtonDecorator buttonDecorator = new ButtonDecorator() {
+		ButtonDecorator buttonDecorator = new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("Editar");
 			}
 		};
@@ -187,11 +190,12 @@ public class MozoListForm extends BaseListForm<MozoBean> {
 				}.start();
 			}
 		};
-		ButtonDecorator buttonDecorator = new ButtonDecorator() {
+		ButtonDecorator buttonDecorator = new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("BORRAR");
 			}
 		};
@@ -226,11 +230,12 @@ public class MozoListForm extends BaseListForm<MozoBean> {
 				}
 			}
 		};
-		ButtonDecorator buttonDecorator = new ButtonDecorator() {
+		ButtonDecorator buttonDecorator = new TranqueraButtonDecorator() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void decorateButton(JButton button) {
+				super.decorateButton(button);
 				button.setText("Ver");
 			}
 		};
