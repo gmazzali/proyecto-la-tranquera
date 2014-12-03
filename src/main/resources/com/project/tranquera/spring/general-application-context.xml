@@ -103,7 +103,7 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="baseService" expression="execution(* com.project.tranquera.business.service..*Service (..))" />
+		<aop:pointcut id="baseService" expression="execution(* com.project.tranquera.business.service.impl.*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseService" />
 	</aop:config>
 
