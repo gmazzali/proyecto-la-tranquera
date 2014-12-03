@@ -36,23 +36,23 @@ public class Precio extends TranqueraEntity<Long> {
 	public interface Attributes extends TranqueraEntity.Attributes {
 		public static final String MENU = "menu";
 		public static final String PRECIO = "precio";
-		public static final String FECHA_DESDE = "fechaDesde";
-		public static final String FECHA_HASTA = "fechahasta";
+		public static final String FECHA_INICIO = "fechaInicio";
+		public static final String FECHA_FIN = "fechaFin";
 	}
 
 	private Menu menu;
 
 	private BigDecimal precio = BigDecimal.ZERO;;
 
-	private Date fechaDesde;
+	private Date fechaInicio;
 
-	private Date fechaHasta;
+	private Date fechaFin;
 
 	@Override
 	public String toString() {
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(super.toString()).append(" PRECIO: ").append(this.precio).append(" FECHA DESDE: ").append(this.fechaDesde)
-				.append(" FECHA HASTA: ").append(this.fechaHasta);
+		stringBuffer.append(super.toString()).append(" PRECIO: ").append(this.precio).append(" FECHA INICIO: ").append(this.fechaInicio)
+				.append(" FECHA FIN: ").append(this.fechaFin);
 		return stringBuffer.toString();
 	}
 
@@ -83,23 +83,23 @@ public class Precio extends TranqueraEntity<Long> {
 		this.precio = precio;
 	}
 
-	@Column(name = "FECHA_DESDE", columnDefinition = "timestamp", nullable = false)
+	@Column(name = "FECHA_INICIO", columnDefinition = "timestamp", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getFechaDesde() {
-		return fechaDesde;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFechaDesde(Date fechaDesde) {
-		this.fechaDesde = fechaDesde;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 
-	@Column(name = "FECHA_HASTA", columnDefinition = "timestamp")
+	@Column(name = "FECHA_FIN", columnDefinition = "timestamp", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
-	public Date getFechaHasta() {
-		return fechaHasta;
+	public Date getFechaFin() {
+		return fechaFin;
 	}
 
-	public void setFechaHasta(Date fechaHasta) {
-		this.fechaHasta = fechaHasta;
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 }

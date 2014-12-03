@@ -1,8 +1,8 @@
 package com.project.tranquera.app;
 
-import com.common.util.app.Application;
 import com.common.util.app.ApplicationLoader;
 import com.common.util.business.holder.ApplicationContextHolder;
+import com.project.tranquera.view.mozo.MozoListForm;
 
 /**
  * La clase que nos permite arrancar el aplicativo.
@@ -17,7 +17,10 @@ public class Start {
 		try {
 			TranqueraApplicationParameter parameter = new TranqueraApplicationParameter();
 			new ApplicationLoader().setApplicacionParameter(parameter).startContext();
-			ApplicationContextHolder.getBean(Application.class).startApplication();
+			// ApplicationContextHolder.getBean(Application.class).startApplication();
+
+			MozoListForm form = ApplicationContextHolder.getBean(MozoListForm.class);
+			form.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

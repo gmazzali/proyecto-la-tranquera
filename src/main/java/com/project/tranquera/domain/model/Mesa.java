@@ -63,7 +63,7 @@ public class Mesa extends TranqueraActiveEntity<Long> {
 		this.pedido = pedido;
 	}
 
-	@Column(name = "DISPONIBLE", columnDefinition = "bool", nullable = false)
+	@Column(name = "DISPONIBLE", columnDefinition = "bit", nullable = false)
 	public Boolean getDisponible() {
 		return disponible;
 	}

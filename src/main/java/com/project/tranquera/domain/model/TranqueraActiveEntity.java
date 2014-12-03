@@ -25,7 +25,8 @@ public abstract class TranqueraActiveEntity<PK extends Serializable> extends Act
 	public interface Attributes extends ActiveEntity.Attributes {
 	}
 
-	@Column(name = "ACTIVO", columnDefinition = "bool", nullable = false)
+	@Override
+	@Column(name = "ACTIVO", columnDefinition = "bit", nullable = false)
 	public Boolean getActive() {
 		return active;
 	}

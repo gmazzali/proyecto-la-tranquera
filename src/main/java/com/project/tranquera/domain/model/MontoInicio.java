@@ -25,7 +25,7 @@ import com.project.tranquera.domain.dto.TipoCaja;
  * @version 1.0
  */
 @Model
-@Table(name = "MONTOS_INICIOS")
+@Table(name = "MONTO_INICIOS")
 @Entity(name = "MontoInicio")
 public class MontoInicio extends TranqueraEntity<Long> {
 	private static final long serialVersionUID = 1L;

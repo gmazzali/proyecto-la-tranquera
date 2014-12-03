@@ -5,10 +5,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.common.util.domain.annotation.Model;
 import com.project.tranquera.domain.dto.TipoCaja;
@@ -67,6 +74,8 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		return id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_CAJA", referencedColumnName = "ID_CAJA", insertable = true, updatable = true, nullable = false)
 	public Caja getCaja() {
 		return caja;
 	}
@@ -75,6 +84,8 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		this.caja = caja;
 	}
 
+	@Column(name = "TIPO_CAJA", columnDefinition = "varchar(20)", nullable = false)
+	@Enumerated(EnumType.STRING)
 	public TipoCaja getTipoCaja() {
 		return tipoCaja;
 	}
@@ -83,6 +94,8 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		this.tipoCaja = tipoCaja;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_TIPO_TRANSACCION", referencedColumnName = "ID_TIPO_TRANSACCION", insertable = true, updatable = true, nullable = false)
 	public TipoTransaccion getTipoTransaccion() {
 		return tipoTransaccion;
 	}
@@ -91,6 +104,8 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		this.tipoTransaccion = tipoTransaccion;
 	}
 
+	@Column(name = "FECHA", columnDefinition = "timestamp", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getFecha() {
 		return fecha;
 	}
@@ -99,6 +114,7 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		this.fecha = fecha;
 	}
 
+	@Column(name = "IMPORTE", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getImporte() {
 		return importe;
 	}
@@ -107,6 +123,7 @@ public class Transaccion extends TranqueraActiveEntity<Long> {
 		this.importe = importe;
 	}
 
+	@Column(name = "OBSERVACION", columnDefinition = "varchar(100)", nullable = false)
 	public String getObservacion() {
 		return observacion;
 	}

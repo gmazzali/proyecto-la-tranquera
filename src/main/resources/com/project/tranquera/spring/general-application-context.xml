@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.1.xsd
                 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
        			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
@@ -37,12 +35,12 @@
 		<constructor-arg index="0" value="${locale.languaje}" />
 		<constructor-arg index="1" value="${locale.country}" />
 	</bean>
-	
+
 	<bean id="messageService" class="com.common.util.business.service.impl.MessageServiceImpl" lazy-init="false" depends-on="messageSource, messageLocale">
 		<property name="resources" ref="messageSource" />
 		<property name="locale" ref="messageLocale" />
 	</bean>
-	
+
 	<bean id="notificacions" class="com.common.swing.view.notification.Notificaction" lazy-init="false" depends-on="messageService">
 		<property name="messageService" ref="messageService" />
 	</bean>
@@ -61,7 +59,7 @@
 
 	<!-- La lectura de las clases de los DAOs, los servicios y las vistas -->
 	<context:annotation-config />
-	<context:component-scan base-package="project.tranquera.*" />
+	<context:component-scan base-package="com.project.tranquera.*" />
 
 	<!-- Creamos la conexión, la sessionFactory y el controlador de transacciones a la base de datos -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" depends-on="properties">
@@ -89,7 +87,7 @@
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
 	<aop:aspectj-autoproxy />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
@@ -105,9 +103,9 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="baseService" expression="execution(* project.tranquera.business.service..*Service (..))" />
+		<aop:pointcut id="baseService" expression="execution(* com.project.tranquera.business.service..*Service (..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseService" />
 	</aop:config>
 
-	<bean id="loadListenerContext" class="com.common.util.business.holder.ApplicationContextLoader"/>
+	<bean id="loadListenerContext" class="com.common.util.business.holder.ApplicationContextLoader" />
 </beans>
