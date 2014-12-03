@@ -15,10 +15,11 @@ public class TranqueraApplicationParameter extends ApplicacionParameter {
 
 	private static final String VARIABLE = "tranquera.configuration.dir";
 
-	// private static final String VARIABLE_VALUE = "D:/DEV/SVN/proyecto-la-tranquera/trunk/src/main/config";
-	private static final String VARIABLE_VALUE = "C:/dev/svn/mios/Tranquera/trunk/src/main/config";
+	private static final String VARIABLE_VALUE = "D:/DEV/SVN/proyecto-la-tranquera/trunk/src/main/config";
+	// private static final String VARIABLE_VALUE = "C:/dev/svn/mios/Tranquera/trunk/src/main/config";
 
-	private static final String[] FILES = { "/com/project/tranquera/spring/general-application-context.xml" };
+	private static final String[] FILES =
+		{ "/com/project/tranquera/spring/general-application-context.xml" };
 
 	private final ApplicationContextMonitor monitor = new ApplicationContextMonitor();
 

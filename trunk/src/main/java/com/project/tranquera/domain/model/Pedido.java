@@ -114,7 +114,7 @@ public class Pedido extends TranqueraActiveEntity<Long> {
 		this.mozo = mozo;
 	}
 
-	@Column(name = "DESCUENTO", columnDefinition = "decimal(12,4)", nullable = false)
+	@Column(name = "DESCUENTOS", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getDescuento() {
 		return descuento;
 	}

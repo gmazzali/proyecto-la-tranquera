@@ -136,7 +136,7 @@ public class Menu extends TranqueraActiveEntity<Long> {
 	public BigDecimal getPrecio(Date fecha) {
 		Precio precio = null;
 		for (Precio p : precios) {
-			if (DateUtil.between(fecha, p.getFechaDesde(), p.getFechaHasta(), DatePrecision.MILLISECOND)) {
+			if (DateUtil.between(fecha, p.getFechaInicio(), p.getFechaFin(), DatePrecision.MILLISECOND)) {
 				precio = p;
 				break;
 			}

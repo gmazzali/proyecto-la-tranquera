@@ -5,10 +5,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.common.util.domain.annotation.Model;
 
@@ -29,13 +34,13 @@ public class Pago extends TranqueraActiveEntity<Long> {
 	 * La interfaz que contiene el nombre de los atributos de esta entidad.
 	 */
 	public interface Attributes extends TranqueraActiveEntity.Attributes {
-		public static final String PROVEEDOR = "proveedor";
+		public static final String ACREEDOR = "acreedor";
 		public static final String TRANSACCION = "transaccion";
 		public static final String FECHA = "fecha";
 		public static final String IMPORTE = "importe";
 	}
 
-	private Acreedor proveedor;
+	private Acreedor acreedor;
 
 	private Transaccion transaccion;
 
@@ -46,7 +51,7 @@ public class Pago extends TranqueraActiveEntity<Long> {
 	@Override
 	public String toString() {
 		StringBuffer stringBuffer = new StringBuffer();
-		stringBuffer.append(super.toString()).append(" PROVEEDOR: ").append(this.proveedor).append(" TRANSACCION: ").append(this.transaccion)
+		stringBuffer.append(super.toString()).append(" ACREEDOR: ").append(this.acreedor).append(" TRANSACCION: ").append(this.transaccion)
 				.append(" FECHA: ").append(this.fecha).append(" IMPORTE: ").append(this.importe);
 		return stringBuffer.toString();
 	}
@@ -59,14 +64,18 @@ public class Pago extends TranqueraActiveEntity<Long> {
 		return id;
 	}
 
-	public Acreedor getProveedor() {
-		return proveedor;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_ACREEDOR", referencedColumnName = "ID_ACREEDOR", insertable = true, updatable = true, nullable = false)
+	public Acreedor getAcreedor() {
+		return acreedor;
 	}
 
-	public void setProveedor(Acreedor proveedor) {
-		this.proveedor = proveedor;
+	public void setAcreedor(Acreedor acreedor) {
+		this.acreedor = acreedor;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "ID_TRANSACCION", referencedColumnName = "ID_TRANSACCION", insertable = true, updatable = true, nullable = false)
 	public Transaccion getTransaccion() {
 		return transaccion;
 	}
@@ -75,6 +84,8 @@ public class Pago extends TranqueraActiveEntity<Long> {
 		this.transaccion = transaccion;
 	}
 
+	@Column(name = "FECHA", columnDefinition = "timestamp", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getFecha() {
 		return fecha;
 	}
@@ -83,6 +94,7 @@ public class Pago extends TranqueraActiveEntity<Long> {
 		this.fecha = fecha;
 	}
 
+	@Column(name = "IMPORTE", columnDefinition = "decimal(12,4)", nullable = false)
 	public BigDecimal getImporte() {
 		return importe;
 	}
